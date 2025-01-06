@@ -13,15 +13,13 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.9'  # Adjust the version as needed
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
 
-      - name: Install Dependencies
+      - name: Build Docker Image
         run: |
-          pip install -r requirements.txt  # Make sure you have a requirements.txt file
+          docker build -t my-flask-app .
 
       - name: Run Tests
         run: |
-          pytest  # Run your tests; make sure you have pytest or another test framework in your requirements.txt
+          docker run --rm my-flask-app pytest  # Run tests in the container
