@@ -1,0 +1,27 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'  # Adjust the version as needed
+
+      - name: Install Dependencies
+        run: |
+          pip install -r requirements.txt  # Make sure you have a requirements.txt file
+
+      - name: Run Tests
+        run: |
+          pytest  # Run your tests; make sure you have pytest or another test framework in your requirements.txt
